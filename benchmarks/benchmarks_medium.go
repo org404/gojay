@@ -255,7 +255,9 @@ func (m *MediumPayload) UnmarshalJSONObject(dec *gojay.Decoder, key string) erro
 		m.Person = &CBPerson{}
 		return dec.AddObject(m.Person)
 	case "company":
-		dec.AddString(&m.Company)
+		if err := dec.AddString(&m.Company); err != nil {
+			return err
+		}
 	}
 	return nil
 }
